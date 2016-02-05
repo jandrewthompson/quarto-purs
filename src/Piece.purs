@@ -1,6 +1,8 @@
 module Piece where
 
 import Prelude
+import Data.Array
+import Data.String (toCharArray)
 
 data Color = White | Black
 
@@ -15,12 +17,25 @@ data Piece = Piece { pieceColor :: Color
                    , pieceShape :: Shape
                    , pieceFill :: Fill }
 
-somePiece :: Piece
-somePiece = Piece
- { pieceColor: White
- , pieceHeight: Tall
- , pieceShape: Round
- , pieceFill: Hollow }
+-- It seems purescript can't do cons destructing in a where block
+-- so this will have to do for now
+stringToPiece :: String -> Piece
+stringToPiece str = stringToPiece' $ toCharArray str
+stringToPiece' :: Array Char -> Piece
+stringToPiece' [c,h,s,f] = Piece { pieceColor: color, pieceHeight: height, pieceShape: shape, pieceFill: fill }
+    where
+        color = case c of
+                     'b' -> Black
+                     'w' -> White
+        height = case h of
+                      's' -> Short
+                      't' -> Tall
+        shape = case s of
+                     's' -> Square
+                     'r' -> Round
+        fill = case f of
+                    'h' -> Hollow
+                    's' -> Solid
 
 instance showColor :: Show Color where
     show White = "White"
