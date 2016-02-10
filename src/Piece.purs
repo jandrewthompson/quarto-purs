@@ -15,14 +15,15 @@ data Fill = Hollow | Solid
 data Piece = Piece { pieceColor :: Color
                    , pieceHeight :: Height
                    , pieceShape :: Shape
-                   , pieceFill :: Fill }
+                   , pieceFill :: Fill 
+                   , pieceText :: String}
 
 -- It seems purescript can't do cons destructing in a where block
 -- so this will have to do for now
 stringToPiece :: String -> Piece
-stringToPiece str = stringToPiece' $ toCharArray str
-stringToPiece' :: Array Char -> Piece
-stringToPiece' [c,h,s,f] = Piece { pieceColor: color, pieceHeight: height, pieceShape: shape, pieceFill: fill }
+stringToPiece str = stringToPiece' str $ toCharArray str
+stringToPiece' :: String -> Array Char -> Piece
+stringToPiece' name [c,h,s,f] = Piece { pieceColor: color, pieceHeight: height, pieceShape: shape, pieceFill: fill, pieceText: name }
     where
         color = case c of
                      'b' -> Black
@@ -55,5 +56,5 @@ instance showFill :: Show Fill where
 
 
 instance showPiece :: Show Piece where
-    show (Piece p) = "Color: " ++ show p.pieceColor ++ ", Height: " ++ show p.pieceHeight ++ ", Shape: " ++ show p.pieceShape ++ ", Fill: " ++ show p.pieceFill
+    show (Piece p) = "Color: " ++ show p.pieceColor ++ ", Height: " ++ show p.pieceHeight ++ ", Shape: " ++ show p.pieceShape ++ ", Fill: " ++ show p.pieceFill ++ ", Name: " ++ show p.pieceText
 

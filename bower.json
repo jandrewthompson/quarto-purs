@@ -19,6 +19,11 @@
     "purescript-foreign": "~0.7.2",
     "purescript-prelude": "^0.1.4",
     "purescript-maps": "^0.5.4",
-    "purescript-globals": "^0.2.2"
+    "purescript-globals": "^0.2.2",
+    "purescript-signal": "^5.0.0",
+    "purescript-halogen": "^0.5.15"
+  },
+  "devDependencies": {
+    "Touch": "touch#^0.0.1"
   }
 }

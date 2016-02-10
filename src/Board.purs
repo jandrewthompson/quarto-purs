@@ -1,10 +1,9 @@
 module Board where
 
-import Prelude
-import Piece
-import Data.Maybe
-import Data.Array
-import qualified Data.Map as M
+import Prelude 
+import Piece (Piece)
+import Data.Maybe (Maybe(Just, Nothing))
+import Data.Map as M
 
 data Coord = Coord Int Int
 
@@ -12,14 +11,11 @@ type Space = Maybe Piece
 
 type Board = M.Map Coord Piece
 
---emptyRow :: Array Space
---emptyRow = replicate 4 Nothing
---
 emptyBoard :: Board
 emptyBoard = M.empty
 
 setPiece :: Coord -> Piece -> Board -> Board
-setPiece = M.insert 
+setPiece = M.insert
 
 getSpace :: Coord -> Board -> Space
 getSpace = M.lookup
@@ -31,9 +27,6 @@ isSpaceAvailable c b = result where
                   Nothing -> true
                   Just _  -> false
 
-
-
-
 instance showCoord :: Show Coord where
     show (Coord x y) = "Row: " ++ show x ++ ", Column: " ++ show y
 
@@ -41,6 +34,4 @@ instance eqCoord :: Eq Coord where
     eq (Coord x1 y1) (Coord x2 y2) = if x1 == x2 then eq y1 y2 else eq x1 x2
 
 instance compareCoord :: Ord Coord where
-    compare (Coord x1 y1) (Coord x2 y2) = if x1 == x2 then compare y1 y2 else compare x1 x2 
-                                        
-
+    compare (Coord x1 y1) (Coord x2 y2) = if x1 == x2 then compare y1 y2 else compare x1 x2
